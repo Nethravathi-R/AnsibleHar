@@ -1,0 +1,30 @@
+---
+- hosts: java
+  tasks:
+    - name: copying_file
+      copy:
+        src: /home/ubuntu/testfile
+        dest: /home/ubuntu
+    - name: package_installation_centos
+      when: ansible_distribution == "centos"
+      yum:
+        name: ["git", "tar", "wget"]
+        state: present
+    - name: package_installation_ubuntu
+      when: ansible_distribution == "Ubuntu"
+      apt:
+        name: ["git", "tar", "wget"]
+        state: present
+        update_cache: yes
+      ignore_errors: yes
+    - name: change_permissions
+      file:
+        dest: /home/ubuntu/testfile
+        mode: 0777
+        group: root
+        owner: root
+    - name: shell_commands
+      shell: uptime
+      register: uptime_out
+    - debug:
+        var: uptime_out.stdout_lines 

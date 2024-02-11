@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+    - name: copying_scripts_to_target
+      copy:
+        src: /home/ubuntu/Scripting/s1.sh
+        dest: /home/ubuntu/
+        mode: 0764
+        owner: root
+        group: root
+    - name: execute_scripts
+      shell: /home/ubuntu/s1.sh
+      register: script_out
+    - debug:
+        var: script_out.stdout_lines
