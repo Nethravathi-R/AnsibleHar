@@ -4,13 +4,13 @@ pipeline {
   stages {
     stage('checkout stage') {
       steps {
-        sh 'rm -rf Ansible_project'
-        sh 'git clone https://github.com/tarundanda147/grafana.git'
+        sh 'rm -rf Ansible'
+        sh 'git clone https://github.com/Harshahd97/Ansible.git'
       }
     }
     stage('running playbook') {
       steps {
-        sh 'ansible-playbook -i hosts graf.yml'
+        sh 'ansible-playbook -i hosts grafana.yml'
       }
     }
   }
